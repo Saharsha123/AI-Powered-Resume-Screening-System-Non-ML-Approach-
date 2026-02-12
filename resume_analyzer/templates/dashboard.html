@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <h1 class="dashboard-title">Analysis Dashboard</h1>
+    {% if results %}
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>PDF Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.date }}</td>
+                        <td>{{ result.resume_file }}</td>
+                        <td>
+                            <a href="{{ url_for('details', result_id=result.id) }}" class="details-button">Show Details</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-results">No analysis results found.</p>
+    {% endif %}
+    <div class="button-group">
+        <a href="{{ url_for('upload') }}" class="dashboard-button">Upload New Resume</a>
+        <a href="{{ url_for('logout') }}" class="dashboard-button logout-button">Logout</a>
+    </div>
+</div>
+
+<style>
+    .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    .results-table th, .results-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    .results-table th {
+        background-color: #f2f2f2;
+    }
+    .details-button {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .details-button:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock %}

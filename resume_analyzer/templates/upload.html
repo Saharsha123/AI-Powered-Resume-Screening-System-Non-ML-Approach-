@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main-content">
+    <div class="form-wrapper">
+        <h2 class="form-title">Upload Resume and Job Description</h2>
+        
+        <!-- Form -->
+        <form id="uploadForm" class="auth-form" method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            
+            <!-- Job Description Field -->
+            <div class="form-group">
+                {{ form.job_desc.label(class="form-label") }}
+                {{ form.job_desc(class="form-textarea", placeholder="Enter the job description here...") }}
+            </div>
+            
+            <!-- Resume Upload Field -->
+            <div class="form-group">
+                {{ form.resume.label(class="form-label") }}
+                {{ form.resume(class="form-file-input", id="resumeInput") }}
+            </div>
+            
+            <!-- Experience Evaluation Checkbox -->
+            <div class="form-group">
+                {{ form.experience_required(class="form-checkbox") }}
+                <label for="{{ form.experience_required.id }}" class="form-label-checkbox">Experience evaluation should be done (or no experience required)</label>
+            </div>
+            
+            <!-- Buttons -->
+            <div style="display: flex; justify-content: space-between; gap: 15px; margin-top: 20px;">
+                <a href="{{ url_for('dashboard') }}" class="form-button" style="background-color: #6c757d; width: 48%; text-align: center;">Return to Dashboard</a>
+                <button type="submit" class="form-button" style="width: 48%;">Analyze</button>
+            </div>
+        </form>
+
+        <!-- Results Section (Initially Hidden) -->
+        <div id="resultsSection" class="results-card" style="display: none;">
+            <h3 class="results-title">Analysis Results</h3>
+            <p><strong>Overall Result:</strong> <span id="overallResult"></span></p>
+            <p><strong>Overall Score:</strong> <span id="overallScore"></span>%</p>
+            <hr>
+            <h5>Skills Analysis</h5>
+            <p><strong>Required Skills:</strong> <span id="requiredSkills"></span></p>
+            <p><strong>Your Skills:</strong> <span id="resumeSkills"></span></p>
+            <p><strong>Skills Match:</strong> <span id="skillsMatch"></span>%</p>
+            <hr>
+            <h5>Education Analysis</h5>
+            <p><strong>Education Result:</strong> <span id="educationResult"></span></p>
+            <p><strong>Education Score:</strong> <span id="educationScore"></span>%</p>
+            <hr>
+            <h5>Experience Analysis</h5>
+            <div id="experienceAnalysis">
+                <!-- Content will be populated dynamically by JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS to Fix Overlaps and Style Checkbox -->
+<style>
+    /* Override label positioning to always be above the input/textarea */
+    .form-group .form-label {
+        position: static !important;
+        margin-bottom: 8px !important;
+        font-size: 14px !important;
+        color: #666 !important;
+        background: none !important;
+        padding: 0 !important;
+    }
+
+    /* Ensure textarea and file input have proper spacing */
+    .form-textarea,
+    .form-file-input {
+        margin-top: 0 !important;
+        width: 100%;
+    }
+
+    /* Style the file input to prevent overlap with browser's default "Choose File" button */
+    .form-file-input {
+        padding: 12px 15px !important;
+    }
+
+    /* Adjust placeholder styling for clarity */
+    .form-textarea::placeholder {
+        color: #999 !important;
+        opacity: 1;
+    }
+
+    /* Style the checkbox and its label */
+    .form-checkbox {
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    .form-label-checkbox {
+        font-size: 14px !important;
+        color: #666 !important;
+        vertical-align: middle;
+    }
+</style>
+
+<!-- JavaScript for Form Submission and Results Display -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#uploadForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            var formData = new FormData(this);
+            
+            $.ajax({
+                url: '{{ url_for("upload") }}',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.error) {
+                        alert(response.error);
+                        return;
+                    }
+                    
+                    // Update results section
+                    $('#overallResult').text(response.result);
+                    $('#overallScore').text(response.overall_score.toFixed(2));
+                    $('#requiredSkills').text(response.skills.join(', '));
+                    $('#resumeSkills').text(response.resume_skills.join(', '));
+                    $('#skillsMatch').text(response.match_count.toFixed(2));
+                    $('#educationResult').text(response.education_result ? 'Pass' : 'Fail');
+                    $('#educationScore').text(response.education_score.toFixed(2));
+                    
+                    // Update experience analysis based on whether it was evaluated
+                    if (response.experience_evaluated) {
+                        $('#experienceAnalysis').html(
+                            '<p><strong>Experience Result:</strong> ' + (response.experience_result ? 'Pass' : 'Fail') + '</p>' +
+                            '<p><strong>Experience Score:</strong> ' + response.experience_score.toFixed(2) + '%</p>'
+                        );
+                    } else {
+                        $('#experienceAnalysis').html(
+                            '<p>Experience evaluation was not performed as per user selection.</p>'
+                        );
+                    }
+                    
+                    // Show results section
+                    $('#resultsSection').show();
+                },
+                error: function() {
+                    alert('An error occurred while analyzing the resume. Please try again.');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

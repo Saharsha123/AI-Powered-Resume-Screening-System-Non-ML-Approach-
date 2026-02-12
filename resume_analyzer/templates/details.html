@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Analysis Details{% endblock %}
+
+{% block content %}
+<div class="details-wrapper">
+    <h1 class="details-title">Analysis Details</h1>
+
+    <div class="jd-section">
+        <h3 class="section-title">Job Description</h3>
+        <p>{{ result.job_description }}</p>
+    </div>
+
+    <div class="results-card">
+        <h3 class="results-title">Analysis Results</h3>
+        <p><strong>Overall Result:</strong> {{ result.result }}</p>
+        <p><strong>Overall Score:</strong> {{ overall_score }}%</p>
+        <hr>
+        <h5>Skills Analysis</h5>
+        <p><strong>Skills in Resume:</strong> {{ result.skills }}</p>
+        <p><strong>Skills Match Score:</strong> {{ result.matches }}%</p>
+        <hr>
+        <h5>Education Analysis</h5>
+        <p><strong>Education Result:</strong> {{ 'Pass' if result.education_result else 'Fail' }}</p>
+        <p><strong>Education Score:</strong> {{ result.education_score }}%</p>
+        <hr>
+        <h5>Experience Analysis</h5>
+        {% if result.experience_result is not none %}
+            <p><strong>Experience Result:</strong> {{ 'Pass' if result.experience_result else 'Fail' }}</p>
+            <p><strong>Experience Score:</strong> {{ result.experience_score }}%</p>
+        {% else %}
+            <p>Experience evaluation was not performed as per user selection.</p>
+        {% endif %}
+    </div>
+
+    <div class="button-group">
+        <a href="{{ url_for('dashboard') }}" class="dashboard-button">Return to Dashboard</a>
+    </div>
+</div>
+
+<style>
+    .details-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .jd-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .section-title {
+        margin-bottom: 10px;
+    }
+    .results-card {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    .results-title {
+        margin-bottom: 10px;
+    }
+    .dashboard-button {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+    .dashboard-button:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock %}

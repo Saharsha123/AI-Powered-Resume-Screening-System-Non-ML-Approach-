@@ -1,0 +1,401 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f5f5;
+    color: #333333;
+    line-height: 1.6;
+    /* Add background image with a subtle overlay */
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('/static/images/pic.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Main Content */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Flash Messages */
+.flash-message {
+    background-color: #ffdddd;
+    color: #d8000c;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Form Wrapper (Login, Register, Upload) */
+.form-wrapper {
+    width: 100%;
+    max-width: 400px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.form-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.auth-form {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+    font-size: 14px;
+    color: #666;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.form-textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* File Input Specific Styling */
+.form-file-input {
+    width: 100%;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+/* Move label up when input is focused or filled (for text inputs and textareas) */
+.form-input:focus + .form-label,
+.form-textarea:focus + .form-label,
+.form-group.filled .form-label {
+    top: -8px;
+    left: 10px;
+    font-size: 12px;
+    color: #00C4B4;
+    background: #ffffff;
+    padding: 0 5px;
+}
+
+/* Always position label above for file inputs */
+.form-file-input + .form-label {
+    top: -8px;
+    left: 10px;
+    font-size: 12px;
+    color: #00C4B4;
+    background: #ffffff;
+    padding: 0 5px;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-file-input:focus {
+    border-color: #00C4B4;
+    outline: none;
+    transform: scale(1.01);
+}
+
+.form-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #00C4B4;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-button:hover {
+    background-color: #00a89a;
+    transform: scale(1.02);
+}
+
+.form-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.form-link a {
+    color: #00C4B4;
+    text-decoration: none;
+    position: relative;
+}
+
+.form-link a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    background: #00C4B4;
+    bottom: -2px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.form-link a:hover::after {
+    width: 100%;
+}
+
+/* Dashboard Wrapper */
+.dashboard-wrapper {
+    width: 100%;
+    max-width: 800px;
+    animation: fadeIn 0.5s ease-in-out;
+    margin: 0 auto;
+}
+
+.dashboard-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+.subheading {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px 0 5px;
+    color: #333333;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Dashboard Buttons */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.dashboard-button {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #00C4B4;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.dashboard-button:hover {
+    background-color: #00a89a;
+    transform: scale(1.02);
+}
+
+.logout-button {
+    background-color: #6c757d;
+}
+
+.logout-button:hover {
+    background-color: #5a6268;
+}
+
+/* Results Table (Dashboard) */
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.table-caption {
+    font-size: 14px;
+    color: #666;
+    padding: 10px;
+    text-align: left;
+    background: #f9f9f9;
+}
+
+.results-table th,
+.results-table td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.results-table th {
+    background: #00C4B4;
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.results-table td {
+    border-bottom: 1px solid #eee;
+}
+
+.results-table tr {
+    transition: background 0.3s ease;
+}
+
+.results-table tr:hover {
+    background: #f9f9f9;
+}
+
+.no-results {
+    text-align: center;
+    font-size: 16px;
+    color: #ffffff;
+    margin: 20px 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Results Card (Upload) */
+.results-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.results-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333333;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.results-card h5 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 0 5px;
+    color: #333333;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.results-card p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.results-card p strong {
+    color: #00C4B4;
+}
+
+/* Loading Spinner (Upload) */
+.loading-spinner {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #00C4B4;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+.loading-spinner p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .form-wrapper,
+    .dashboard-wrapper {
+        padding: 0 10px;
+    }
+
+    .results-table {
+        font-size: 12px;
+    }
+
+    .results-table th,
+    .results-table td {
+        padding: 8px 10px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .dashboard-button {
+        width: 100%;
+    }
+}
