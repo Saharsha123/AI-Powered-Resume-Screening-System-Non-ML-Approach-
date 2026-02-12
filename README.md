@@ -54,9 +54,9 @@ Score = |Job Skills ∩ Resume Skills| / |Job Skills ∪ Resume Skills|
 Example: {python,sql} ∩ {python,flask,sql} = 0.5 (50% match)
 Time Complexity: O(n + m)
 ### 3. **Rule-Based Filtering**
-- Education level validation
-- Degree requirement matching
-- Experience years verification
+- Skill set validation
+- Education requirement matching
+- Experience verification
 
 ## 🛠 Tech Stack
 | Component    | Technology                     |
